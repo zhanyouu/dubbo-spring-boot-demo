@@ -13,4 +13,8 @@ public class UserController {
     public String getUser(){
         return userService.getUser();
     }
+    @RequestMapping("/getName")
+    public String getName(){
+        return userService.getName();
+    }
 }
