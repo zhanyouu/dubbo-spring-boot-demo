@@ -3,6 +3,14 @@
 spring:
   application:
     name: dubbo_service_provider
+  datasource:
+    url: jdbc:mysql://localhost:3306/test?serverTimezone=Asia/Shanghai
+    hikari:
+      username: root
+      password: 123456
+      # >= 6.x: com.mysql.cj.jdbc.Driver
+      # <= 5.x: com.mysql.jdbc.Driver
+      driver-class-name: com.mysql.cj.jdbc.Driver
 server:
   port: 8081
 dubbo:
@@ -16,3 +24,5 @@ dubbo:
     port: 20880
   scan:
     base-packages: com.provider
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
