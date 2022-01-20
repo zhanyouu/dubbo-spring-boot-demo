@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.provider.dao.LockDao">
+    <select id="queryLock" parameterType="int" resultType="int">
+        select count(1) from lockinfo where id=#{id}
+    </select>
+    <insert id="lock" parameterType="com.api.Bean.Lock">
+        insert into lockinfo values(#{id},#{status},#{startTime},#{endTime})
+    </insert>
+    <delete id="unLock" parameterType="int">
+        delete from lockinfo where id = #{id}
+    </delete>
+</mapper>

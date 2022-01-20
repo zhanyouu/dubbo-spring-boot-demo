@@ -1,8 +1,7 @@
-
 #spring
 spring:
   application:
-    name: dubbo_service_provider
+    name: dubbo_service_consumer
   datasource:
     url: jdbc:mysql://localhost:3306/test?serverTimezone=Asia/Shanghai
     hikari:
@@ -12,16 +11,16 @@ spring:
       # <= 5.x: com.mysql.jdbc.Driver
       driver-class-name: com.mysql.cj.jdbc.Driver
 server:
-  port: 8081
+  port: 8080
 dubbo:
   application:
-    name: dubbo_provider
+    name: dubbo_consumer
   registry:
     protocol: zookeeper
     address: zookeeper://172.30.252.96:2181
   protocol:
     name: dubbo
-    port: 20881
+    port: 20880
   scan:
     base-packages: com.provider
 mybatis:

@@ -1,19 +1,21 @@
-package com.consumer.service;
+package com.provider.service;
 
 import com.api.Bean.Order;
+import com.api.service.BuyService;
 import com.api.service.OrderService;
 import com.api.service.StockService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Reference;
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 @Slf4j
-@Service("syncBuyGoodService")
-public class SyncBuyGoodServiceImpl implements BuyGoodService{
-    @Reference(version = "1.0.0")
+@Service(version = "1.0.0",interfaceClass = BuyService.class)
+public class SyncBuyGoodServiceImpl implements BuyService {
+    @Autowired
     private StockService stockService;
-    @Reference(version = "1.0.0")
+    @Autowired
     private OrderService orderService ;
     @Override
     public synchronized void  buyGood(int id) {

@@ -1,23 +1,24 @@
-package com.consumer.service;
+package com.provider.service;
 
 import com.api.Bean.Order;
+import com.api.service.BuyService;
 import com.api.service.OrderService;
 import com.api.service.StockService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Reference;
-import org.springframework.stereotype.Service;
-
+import org.apache.dubbo.config.annotation.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Slf4j
-@Service("mysqlBuyGoodService")
-public class MysqlBuyGoodServiceImpl implements BuyGoodService{
-    @Reference(version = "1.0.0")
+@Service(version = "3.0.0",interfaceClass = BuyService.class)
+public class RedisBuyGoodServiceImpl implements BuyService {
+    @Autowired
     private StockService stockService;
-    @Reference(version = "1.0.0")
+    @Autowired
     private OrderService orderService ;
     @Override
     public void buyGood(int id) {
-        log.info("------------------mysql-------------");
+        log.info("------------------redis-------------");
         int num = stockService.getGoodStock(id);
         log.info("商品id={},库存数量num={}",id,num);
         if(num>0){
