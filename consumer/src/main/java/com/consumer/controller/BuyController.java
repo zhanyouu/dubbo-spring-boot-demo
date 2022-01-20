@@ -10,8 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 public class BuyController {
 
 //    @Reference(version = "1.0.0")
-    @Reference(version = "2.0.0")
-//    @Reference(version = "3.0.0")
+//    @Reference(version = "2.0.0")
+    @Reference(version = "3.0.0")
     private BuyService buyService;
     @RequestMapping("/buy")
     public void getStock(@RequestParam int id){

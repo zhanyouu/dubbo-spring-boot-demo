@@ -11,6 +11,12 @@ spring:
       # >= 6.x: com.mysql.cj.jdbc.Driver
       # <= 5.x: com.mysql.jdbc.Driver
       driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    sentinel:
+      master: mymaster
+      nodes: 172.30.252.96:26379,172.30.252.96:26380,172.30.252.96:26381
+    database: 0
+    connect-timeout: 1000
 server:
   port: 8081
 dubbo:
