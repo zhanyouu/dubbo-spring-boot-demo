@@ -7,9 +7,13 @@ import com.api.service.StockService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Reference;
 import org.apache.dubbo.config.annotation.Service;
+import org.redisson.Redisson;
+import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service(version = "3.0.0",interfaceClass = BuyService.class)
@@ -19,23 +23,32 @@ public class RedisBuyGoodServiceImpl implements BuyService {
     @Autowired
     private OrderService orderService ;
     @Autowired
-    private StringRedisTemplate redisTemplate;
+    private Redisson redisson;
     @Override
     public void buyGood(int id) {
-        redisTemplate.opsForValue().set("a","b");
+        String KEY = "good_1";
+        RLock lock = redisson.getLock(KEY);
+
         log.info("------------------redis-------------");
-        int num = stockService.getGoodStock(id);
-        log.info("商品id={},库存数量num={}",id,num);
-        if(num>0){
-            int res = stockService.updateGoodStock(id,1);
-            if(res>0){
-                Order order = new Order();
-                order.setGoodId(id);
-                order.setDesc("商品id为"+id+"的商品");
-                orderService.insertOrder(order);
+        try {
+            lock.lock();
+            int num = stockService.getGoodStock(id);
+            log.info("商品id={},库存数量num={}",id,num);
+            if(num>0){
+                int res = stockService.updateGoodStock(id,1);
+                if(res>0){
+                    Order order = new Order();
+                    order.setGoodId(id);
+                    order.setDesc("商品id为"+id+"的商品");
+                    orderService.insertOrder(order);
+                }
+            }else {
+                log.info("库存不足！");
             }
-        }else {
-            log.info("库存不足！");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            lock.unlock();
         }
     }
 }

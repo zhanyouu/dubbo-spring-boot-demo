@@ -4,16 +4,19 @@ import com.alibaba.csp.sentinel.init.InitExecutor;
 import com.alibaba.csp.sentinel.slots.block.RuleConstant;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
+import com.provider.config.RedissonConfig;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Import;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 @MapperScan(value="com.provider.dao")
 @SpringBootApplication
+@Import(RedissonConfig.class)
 public class ProviderApplication {
 
     public static void main(String[] args)  {
