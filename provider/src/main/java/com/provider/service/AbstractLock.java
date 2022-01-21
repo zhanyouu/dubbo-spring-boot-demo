@@ -1,6 +1,13 @@
 package com.provider.service;
 
+import org.I0Itec.zkclient.ZkClient;
+
 public abstract class AbstractLock implements Lock{
+    private static final String SERVER_ADDR = "172.30.252.96:2181";
+
+    protected ZkClient zkClient = new ZkClient(SERVER_ADDR);
+
+    protected static final String PATH = "/lock";
     /**
      * 获取锁
      */

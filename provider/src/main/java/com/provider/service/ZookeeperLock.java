@@ -1,16 +1,10 @@
 package com.provider.service;
 
 import org.I0Itec.zkclient.IZkDataListener;
-import org.I0Itec.zkclient.ZkClient;
 
 import java.util.concurrent.CountDownLatch;
 
 public class ZookeeperLock extends AbstractLock{
-    private static final String SERVER_ADDR = "172.30.252.96:2181";
-
-    protected ZkClient zkClient = new ZkClient(SERVER_ADDR);
-
-    protected static final String PATH = "/lock";
 
     private CountDownLatch countDownLatch = null;
     @Override
