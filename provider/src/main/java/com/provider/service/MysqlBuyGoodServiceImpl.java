@@ -17,11 +17,11 @@ public class MysqlBuyGoodServiceImpl implements BuyService {
     @Autowired
     private OrderService orderService ;
     @Autowired
-    private LockService lockService;
+    private MySqlLockService mySqlLockService;
     @Override
     public void buyGood(int id) {
         log.info("------------------mysql-------------");
-            int n = lockService.lock(id);
+            int n = mySqlLockService.lock(id);
             if(n >0){
                 log.info("商品id={}加锁成功！",id);
                 int num = stockService.getGoodStock(id);
@@ -37,7 +37,7 @@ public class MysqlBuyGoodServiceImpl implements BuyService {
                 }else {
                     log.info("库存不足！");
                 }
-                lockService.unLock(id);
+                mySqlLockService.unLock(id);
             }else {
                 log.info("商品id={}加锁失败！",id);
             }

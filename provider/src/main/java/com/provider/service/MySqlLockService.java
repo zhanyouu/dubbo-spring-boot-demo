@@ -11,7 +11,7 @@ import java.util.Date;
 
 @Slf4j
 @Service
-public class LockService {
+public class MySqlLockService {
     @Autowired
     private LockDao lockDao;
     public int lock(int id){

@@ -24,7 +24,7 @@ spring:
         max-idle: 50
         min-idle: 0
 server:
-  port: 8082
+  port: 8081
 dubbo:
   application:
     name: dubbo_provider
@@ -33,7 +33,7 @@ dubbo:
     address: zookeeper://172.30.252.96:2181
   protocol:
     name: dubbo
-    port: 20882
+    port: 20881
   scan:
     base-packages: com.provider
 mybatis:
